@@ -22,7 +22,8 @@ if [[ $# -lt 1 ]]; then
     exit 2
 fi
 
-# prep the configurationecho -e "${BLUE}domains to process: $#${RESET}"
+# prep the configuration
+echo -e "${BLUE}domains to process: $#${RESET}"
 DOMAINS=$(expr $# - 1 )
 DOMAIN_LIST=""
 
