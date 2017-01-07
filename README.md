@@ -1,5 +1,5 @@
-# haproxy-letsencrypt-scripts
-A Small set of scripts to help Lets Encrypt play nicely with HAProxy.
+# haproxy-letsencrypt
+A Small set of scripts to help Let's Encrypt play nicely with HAProxy. These are not unique or necessarily the best but work well in my standard distribution.
 
 ## Installation
 Clone this repository.
