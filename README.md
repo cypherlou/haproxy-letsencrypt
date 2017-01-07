@@ -7,8 +7,8 @@ Clone this repository.
     git clone https://github.com/cypherlou/haproxy-letsencrypt-scripts.git
 
 ## Requirements
-* Let's Encrypt binaries (letsencrypt 0.4.1)
-* HAProxy (HA-Proxy version 1.6.3)
+* Let's Encrypt binaries (letsencrypt >= 0.4.1)
+* HAProxy (HA-Proxy >= 1.6.3)
 
 ## HAProxy configuration
 The HAProxy configuration and these scripts assume your store your PEM files in `/etc/haproxy/certs`. If this is not the case then modify the below examples accordingly and update `HAPROXY_CERT_DIR` in `letsencrypt-config.sh`.
