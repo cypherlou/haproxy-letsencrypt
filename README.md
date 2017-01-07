@@ -34,7 +34,7 @@ The HAProxy configuration and these scripts assume your store your PEM files in 
 If port `10000` is not available then modify this example making use of another port and then update `BASE_PORT` in `letsencrypt-config.sh`.
 
 ## Creating a new Certificate
-To create a new certificate, run `letsencrypt-new.sh` with one or more domains. For example, to create a single PEM file with 2 certificates, one for my-domain.com and another for www.my-domain.com, run the following command;
+To create a new certificate, run `letsencrypt-new.sh` with one or more domains. For example, to create a single PEM file with 2 certificates, one for my-domain.com and another for www<i></i>.my-domain.com, run the following command;
 
     letsencrypt-new.sh my-domain.com www.my-domain.com
 
@@ -74,3 +74,8 @@ To run the renewal script via crontab add something similar to the below example
 * HAProxy is never restarted automatically by these scripts.
 * Any script failure will result in an exit status of 2 so it is safe to chain commands with `&&`.
 * The user running these scripts needs to have write access to `HAPROXY_CERT_DIR`.
+
+## Resources
+* [HAProxy](http://www.haproxy.org/)
+* [Let's Encrypt](https://letsencrypt.org/)
+* [Let's Encrypt on github](https://github.com/certbot/certbot)
