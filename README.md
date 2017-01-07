@@ -4,7 +4,7 @@ A Small set of scripts to help Lets Encrypt play nicely with HAProxy.
 ## Installation
 Clone this repository.
 
-    git clone https://github.com/cypherlou/haproxy-letsencrypt-scripts.git
+    git clone https://github.com/cypherlou/haproxy-letsencrypt.git
 
 ## Requirements
 * Let's Encrypt binaries (letsencrypt >= 0.4.1)
