@@ -1,6 +1,7 @@
 # Designed to be run from cron or logrotated (post processing) to renew certs on the box
 
 # configuration
+BASE_DIR=$(dirname $(realpath $0) )
 source letsencrypt-config.sh
 
 # correct number of parameters?

@@ -14,6 +14,7 @@
 # NOTE * NOTE * NOTE * NOTE * NOTE * NOTE * NOTE * NOTE * NOTE * NOTE * NOTE * NOTE * NOTE * NOTE * NOTE * NOTE * NOTE
 
 # configuration
+BASE_DIR=$(dirname $(realpath $0) )
 source letsencrypt-config.sh
 
 # correct number of parameters?
