@@ -7,8 +7,9 @@ Clone this repository.
     git clone https://github.com/cypherlou/haproxy-letsencrypt.git
 
 ## Requirements
+* Ubuntu 16.04
 * Let's Encrypt binaries (letsencrypt >= 0.4.1)
-* HAProxy (HA-Proxy >= 1.6.3)
+* HAProxy binaries (HA-Proxy >= 1.6.3)
 
 ## HAProxy configuration
 The HAProxy configuration and these scripts assume your store your PEM files in `/etc/haproxy/certs`. If this is not the case then modify the below examples accordingly and update `HAPROXY_CERT_DIR` in `letsencrypt-config.sh`.
@@ -54,7 +55,7 @@ To run the renewal script via crontab add something similar to the below example
 * This crontab user needs to be run by a user with rights to restart HAProxy.
 
 ### logrotated
-
+To make use of the `letsencrypt-renew.sh` script from the log rotation daemon then add it as a `prerotate` task in the `/etc/logrotate.d/haproxy.conf` file.
 
     /var/log/haproxy.log {
       weekly
@@ -71,6 +72,13 @@ To run the renewal script via crontab add something similar to the below example
       endscript
     }
 
+**Notes**
+* You will need to use the full path to the `letsencrypt-renew.sh` script.
+* The logrotate daemon user needs to have write access to `HAPROXY_CERT_DIR`.
+* Depending on your Linux distribution or your HAProxy installation `/etc/logrotate.d/haproxy.conf` may not exist. Other options include;
+  * Adding your own configuration to `rsyslogd` so that HAProxy produces its own log file. It may be that log data is being sent to `/var/log/syslog` or similar.
+  * Add the `prerotate` option to rotate `/var/log/syslog` or equivalent file.
+
 ## Notes
 * Certs are validated before being copied to the destination directory (`HAPROXY_CERT_DIR`).
 * HAProxy is never restarted automatically by these scripts.
@@ -81,3 +89,22 @@ To run the renewal script via crontab add something similar to the below example
 * [HAProxy](http://www.haproxy.org/)
 * [Let's Encrypt](https://letsencrypt.org/)
 * [Let's Encrypt on github](https://github.com/certbot/certbot)
+
+## Scope
+This document is not intended to assist with the installation of any of the dependancies herein mentioned. The author is happy to answer questions at *cypherlou666 [at] gmail.com*.
+
+## License
+Copyright (c) 2017 Destar Limited
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+## Disclaimer
+The entire risk as to the quality and performance of the source code in this repository is borne by you.
