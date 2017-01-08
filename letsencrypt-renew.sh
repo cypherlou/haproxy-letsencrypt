@@ -2,7 +2,7 @@
 
 # configuration
 BASE_DIR=$(dirname $(realpath $0) )
-source letsencrypt-config.sh
+source ${BASE_DIR}/letsencrypt-config.sh
 
 # correct number of parameters?
 if [[ $# -ne 0 ]]; then
