@@ -31,7 +31,7 @@ fi
 echo -en "$RESET"
 
 # copy the cert into place
-echo -e "${BLUE}Installing cert $1{YELLOW}"
+echo -e "${BLUE}Installing cert $1${YELLOW}"
 mv -v $TEMP_FILE $2/${1}.pem
 echo -en "${RESET}"
 
