@@ -5,7 +5,15 @@
 #
 
 # load configuration
-BASE_DIR=$(dirname $(realpath $0) )
+if [ "$(which realname)" == "" ]; then
+    dir=$(dirname $0)
+    if [ ${dir:0:1} == '.' ]; then
+        dir="$(pwd)/${dir}"
+    fi
+    BASE_DIR=$dir
+else
+    BASE_DIR=$(dirname $(realpath $0) )
+fi
 source ${BASE_DIR}/letsencrypt-config.sh
 
 # correct number of parameters?
