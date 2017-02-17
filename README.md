@@ -8,7 +8,7 @@ Clone this repository.
 
 ## Requirements
 * Ubuntu 16.04
-* Let's Encrypt binaries (letsencrypt >= 0.4.1)
+* Let's Encrypt binaries (letsencrypt >= 0.4.1) `git clone https://github.com/letsencrypt/letsencrypt`
 * HAProxy binaries (HA-Proxy >= 1.6.3)
 
 ## HAProxy configuration
@@ -84,6 +84,7 @@ To make use of the `letsencrypt-renew.sh` script from the log rotation daemon th
 * HAProxy is never restarted automatically by these scripts.
 * Any script failure will result in an exit status of 2 so it is safe to chain commands with `&&`.
 * The user running these scripts needs to have write access to `HAPROXY_CERT_DIR`.
+* If let's Encrypt has not previously been run then it will be necessary to agree to Term & Conditions. It is possible to do this with `letsencrypt-auto certonly --standalone --agree-tos --email you-email@your-domain.com`. You can exit the process without generating a cert by entering `c` when the process asks for a domain name.
 
 ## Resources
 * [HAProxy](http://www.haproxy.org/)
