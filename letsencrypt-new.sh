@@ -68,5 +68,13 @@ for f in $files; do
     fi
 done
 
-# tidy up messages
-echo -e "${LRED}You will have to restart HAProxy manually.${RESET}"
+# check the HAProxy config to ensure a restart will not fail due to config issues.
+echo -e "${BLUE}Checking HAProxy's configuration.${RESET}"
+echo -en "${YELLOW}"
+${HAPROXY_CMD} -c -f ${HAPROXY_CONFIG}
+if [[ $? -ne 0 ]]; then
+    echo -e "${RED}HAProxy config check has failed, aborting${RESET}"
+    exit 2
+else
+    echo -e "${LRED}You will have to restart HAProxy manually.${RESET}"
+fi
