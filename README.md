@@ -41,6 +41,16 @@ To create a new certificate, run `letsencrypt-new.sh` with one or more domains. 
 
     letsencrypt-new.sh my-domain.com www.my-domain.com
 
+## Creating a new Certificate
+If you wish to see what domains are supported by any given `.pem` in the `HAPROXY_CERT_DIR` directory then make use of the `letsencrypt-dump.sh` script which accepts the name of the domain of interest to you. 
+
+    letsencrypt-dump.sh telephone-number-checker.co.uk
+
+    Certificates in /etc/haproxy/certs/telephone-number-checker.co.uk.pem;
+    telephone-number-checker.co.uk
+    www.telephone-number-checker.co.uk
+    admin.telephone-number-checker.co.uk
+
 ## Domain renewal
 To renew all Let's Encrypt Certificates run `letsencrypt-renew.sh`. This script will renew certs a required and then copy them into the cert directory defined by `HAPROXY_CERT_DIR`.
 
