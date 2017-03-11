@@ -68,6 +68,12 @@ for f in $files; do
     fi
 done
 
+# check if the HAProxy check is required
+if [[ $HAPROXY_CHECK -eq 0 ]]; then
+    echo -e "${RED}The HAProxy check has been disabled${RESET}"
+    exit 1
+fi
+
 # check the HAProxy config to ensure a restart will not fail due to config issues.
 echo -e "${BLUE}Checking HAProxy's configuration.${RESET}"
 echo -en "${YELLOW}"

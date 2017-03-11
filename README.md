@@ -42,7 +42,7 @@ To create a new certificate, run `letsencrypt-new.sh` with one or more domains. 
     letsencrypt-new.sh my-domain.com www.my-domain.com
 
 ## Creating a new Certificate
-If you wish to see what domains are supported by any given `.pem` in the `HAPROXY_CERT_DIR` directory then make use of the `letsencrypt-dump.sh` script which accepts the name of the domain of interest to you. 
+If you wish to see what domains are supported by any given `.pem` in the `HAPROXY_CERT_DIR` directory then make use of the `letsencrypt-dump.sh` script which accepts the name of the domain of interest to you.
 
     letsencrypt-dump.sh telephone-number-checker.co.uk
 
@@ -95,6 +95,7 @@ To make use of the `letsencrypt-renew.sh` script from the log rotation daemon th
 * Any script failure will result in an exit status of 2 so it is safe to chain commands with `&&`.
 * The user running these scripts needs to have write access to `HAPROXY_CERT_DIR`.
 * If let's Encrypt has not previously been run then it will be necessary to agree to Term & Conditions. It is possible to do this with `letsencrypt-auto certonly --standalone --agree-tos --email you-email@your-domain.com`. You can exit the process without generating a cert by entering `c` when the process asks for a domain name.
+* If you are using the cert to secure another application such as Postfix then update the `letsencrypt-config.sh` file setting `HAPROXY_CHECK` to `0` so that the processing does not carry out a check of the HAProxy configuration.
 
 ## Resources
 * [HAProxy](http://www.haproxy.org/)

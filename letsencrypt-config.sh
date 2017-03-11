@@ -12,6 +12,7 @@ LETS_ENCRYPT_DIR="/usr/local/bin/letsencrypt"
 CERT_CMD="${LETS_ENCRYPT_DIR}/letsencrypt-auto certonly --standalone --preferred-challenges http --http-01-port ${BASE_PORT} --renew-by-default --agree-tos --quiet --non-interactive"
 INSTALL_CMD="${BASE_DIR}/letsencrypt-copy-haproxy.sh"
 CERT_DIR="/etc/letsencrypt/live/"
+HAPROXY_CHECK=1
 HAPROXY_CMD="/usr/sbin/haproxy"
 HAPROXY_CONFIG="/etc/haproxy/haproxy.cfg"
 HAPROXY_CERT_DIR="/etc/haproxy/certs"
