@@ -8,10 +8,17 @@
 #    4. the script is running under sudo
 #    5. that the openssl binary is at /usr/bin/openssl. Update OPEN_SSL_CMD in letsencrypt-copy-haproxy.sh otherwise.
 #
-# NOTE * NOTE * NOTE * NOTE * NOTE * NOTE * NOTE * NOTE * NOTE * NOTE * NOTE * NOTE * NOTE * NOTE * NOTE * NOTE * NOTE
-# This script will install all certs known to this installation's Let's Encrypt configuration. This means it will
-# installation the current request and any others that exist on the system.
-# NOTE * NOTE * NOTE * NOTE * NOTE * NOTE * NOTE * NOTE * NOTE * NOTE * NOTE * NOTE * NOTE * NOTE * NOTE * NOTE * NOTE
+
+copy_cert() {
+
+    echo -e "${BLUE}Installing ${1}${RESET}"
+    $INSTALL_CMD $1 $HAPROXY_CERT_DIR
+    if [[ $? -ne 0 ]]; then
+	echo -e "${LRED}The cert installation process has failed, aborting${RESET}"
+	exit 2
+    fi
+
+}
 
 # configuration
 if [ "$(which realname)" == "" ]; then
@@ -42,6 +49,7 @@ for d in $DOMAIN_LIST_U; do
     echo -e "\t${BLUE}adding${LRED} ${d}${RESET}"
     DOMAIN_LIST+=" -d $d"
 done
+BASE_DOMAIN=${DOMAIN_LIST_U%% *}
 
 # output some guidance information
 CERT_START=$(date +%s)
@@ -52,26 +60,37 @@ if [[ $? -ne 0 ]]; then
     echo -e "${LRED}The cert request process has failed, aborting${RESET}"
     exit 2
 fi
+echo -en "${RESET}"
 
 # helper message related to processing time
 CERT_AGE=$( expr $(date +%s) - $CERT_START )
 echo -e "${BLUE}Processing took ${CERT_AGE} second(s).${RESET}"
 
 # copy the newly created files into their correspinding PEMs and install in the HAProxy cert dir
+files_copied=0
 files=$( ls $CERT_DIR )
 for f in $files; do
-    echo -e "${BLUE}Installing ${f}${RESET}"
-    $INSTALL_CMD $f $HAPROXY_CERT_DIR
-    if [[ $? -ne 0 ]]; then
-	echo -e "${LRED}The cert installation process has failed, aborting${RESET}"
-	exit 2
+    if [[ $MINIMAL_INSTALL -eq 1 ]]; then
+	if [[ $f == *"${BASE_DOMAIN}"* ]]; then
+	    copy_cert $f
+	    files_copied=$((files_copied+1))
+	fi
+    else
+	copy_cert $f
+	files_copied=$((files_copied+1))
     fi
 done
+
+# if no files have been copied then exit with code 4 so haproxy restarts do not take place
+if [[ $files_copied -eq 0 ]]; then
+    echo -e "${LRED}No files copied on this run, exiting with code 3.${RESET}"
+    exit 3
+fi
 
 # check if the HAProxy check is required
 if [[ $HAPROXY_CHECK -eq 0 ]]; then
     echo -e "${RED}The HAProxy check has been disabled${RESET}"
-    exit 1
+    exit 0
 fi
 
 # check the HAProxy config to ensure a restart will not fail due to config issues.

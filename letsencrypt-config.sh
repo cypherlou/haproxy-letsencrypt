@@ -12,6 +12,7 @@ HAPROXY_CHECK=1
 HAPROXY_CMD="/usr/sbin/haproxy"
 HAPROXY_CONFIG="/etc/haproxy/haproxy.cfg"
 HAPROXY_CERT_DIR="/etc/haproxy/certs"
+MINIMAL_INSTALL=1
 
 # config used by letsencrypt-copy-haproxy.sh
 BASE_LE_DIR="/etc/letsencrypt/live"
