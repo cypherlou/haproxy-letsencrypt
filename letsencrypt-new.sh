@@ -49,7 +49,7 @@ for d in $DOMAIN_LIST_U; do
     echo -e "\t${BLUE}adding${LRED} ${d}${RESET}"
     DOMAIN_LIST+=" -d $d"
 done
-BASE_DOMAIN=${DOMAIN_LIST_U%% *}
+BASE_DOMAIN=$(cut DOMAIN_LIST -d' ' -f1 )
 
 # output some guidance information
 CERT_START=$(date +%s)
@@ -69,9 +69,10 @@ echo -e "${BLUE}Processing took ${CERT_AGE} second(s).${RESET}"
 # copy the newly created files into their correspinding PEMs and install in the HAProxy cert dir
 files_copied=0
 files=$( ls $CERT_DIR )
+
 for f in $files; do
     if [[ $MINIMAL_INSTALL -eq 1 ]]; then
-	if [[ $f == *"${BASE_DOMAIN}"* ]]; then
+	if [[ $f =~ ${BASE_DOMAIN} ]]; then
 	    copy_cert $f
 	    files_copied=$((files_copied+1))
 	fi
